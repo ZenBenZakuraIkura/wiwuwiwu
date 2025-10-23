@@ -82,6 +82,6 @@ int main(void) {
 
     } while (1);
 
-    puts("Use of Kit Terminated. Please reboot code.");
+    puts("Use of Kit Terminaated. Please rebooot code.");
     return 0;
 }
