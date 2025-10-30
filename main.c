@@ -7,6 +7,8 @@ void decToBin();
 
 void decToOct();
 
+void octToDec();
+
 void clearScreen();
 
 int main(void) {
@@ -25,7 +27,7 @@ int main(void) {
         if (menu_main == 0) break;
 
         clearScreen();
-        
+
         switch (menu_main) {
 
             case 1:
@@ -63,11 +65,12 @@ int main(void) {
 
             case 2:
                 do {
+                    clearScreen();
                     puts("\n====<<< Number Conversion Calculator Kit >>>====");
                     puts("1.  Decimal to other forms");
                     puts("2.  Machine 32");
-                    puts("3.  Machine 33");
-                    puts("4.  Machine 34");
+                    puts("3.  Oktal to decimal");
+                    puts("4.  Hexadecimal to decimal");
                     puts("Press 0 to enter previous menu");
 
                     if (scanf("%d", &menu_sec) != 1) return 1;
@@ -79,7 +82,7 @@ int main(void) {
                                 puts("\n====<<< Number Conversion Calculator Kit >>>====");
                                 puts("1.  Decimal to Binary");
                                 puts("2.  Decimal to Octal");
-                                puts("3.  Decimal to Hexadecimal");
+                                puts("3.  Decimal to Hexadecimal (Belum aku sentuh)");
                                 puts("Press 0 to enter previous menu");
 
                                 if (scanf("%d", &menu_third) != 1) return 1;
@@ -105,7 +108,7 @@ int main(void) {
                             printf("function 2 will go here later\n");
                             break;
                         case 3:
-                            printf("function 3 will go here later\n");
+                            octToDec();
                             break;
                         case 4:
                             printf("function 4 will go here later\n");
@@ -278,7 +281,6 @@ void ohmsLaw() {
     clearScreen();
 }
 
-
 void clearScreen(){
     #ifdef _WIN32
         system("cls");   // untuk Windows
@@ -287,3 +289,60 @@ void clearScreen(){
     #endif
 }
 
+void octToDec() {
+
+    int inp;
+    int repeat = 1;
+
+    while (repeat) {
+        clearScreen();
+        printf("========= OCTAL TO DECIMAL =========\n");
+        printf("Enter an Octal Number: ");
+        scanf("%d", &inp);
+
+        int original = inp;
+        int ans = 0;
+        int exp = 0;
+        int valid = 1;
+
+        while (inp > 0) {
+            int totalPow = 8;
+            int lastDig = inp % 10;
+
+            if (lastDig > 7) {
+                printf("Error: Digit '%d' is not an octal digit!\n", lastDig);
+                valid = 0;
+                break;
+            }
+
+            if (exp == 0) ans += lastDig;
+            else {
+                for (int i = 0; i < exp - 1; i++) {
+                    totalPow *= 8;
+                }
+                ans = ans + (totalPow * lastDig);
+            }
+
+            inp /= 10;
+            exp++;
+        }
+
+        char tmp;
+
+        if (valid) {
+            printf("Decimal value of %d (base 8) is: %d\n", original, ans);
+        }
+
+        printf("Do you want to convert again? (y/n): ");
+        scanf(" %c", &tmp);
+
+        if (tmp == 'y' || tmp == 'Y')
+            repeat = 1;
+        else
+            repeat = 0;
+    }
+}
+
+void hexToDec(){
+
+}
