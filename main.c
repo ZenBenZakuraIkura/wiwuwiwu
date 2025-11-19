@@ -141,44 +141,84 @@ int main(void) {
 
 
 void decToBin() {
-    int n, binary[32];
+    int repeat = 1;
+    while (repeat) {
+        clearScreen();
 
-    puts("Insert a Decimal Number here: ");
-    scanf("%d", &n);
+        int n, binary[32];
 
-    int i = 0;
-    while (n > 0) {
-        binary[i] = n % 2;
-        n = n / 2;
-        i++;
+        puts("Insert a Decimal Number here: ");
+        if (scanf("%d", &n) != 1) {
+            while (getchar() != '\n');
+            printf("Invalid input.\n");
+        }
+
+        if (n == 0) {
+            puts("Binary: 0");
+            printf("\n");
+        } else {
+            int i = 0;
+            int temp = n;
+            while (temp > 0 && i < 32) {
+                binary[i] = temp % 2;
+                temp = temp / 2;
+                i++;
+            }
+
+            puts("Binary: ");
+            for (int j = i - 1; j >= 0; j--) {
+                printf("%d", binary[j]);
+            }
+            printf("\n");
+        }
+
+        char tmp;
+        printf("again? (y/n) : ");
+        scanf(" %c", &tmp);
+        if (tmp == 'y' || tmp == 'Y') repeat = 1;
+        else repeat = 0;
     }
-
-    puts("Binary: ");
-    for (int j = i - 1; j >= 0; j--) {
-        printf("%d", binary[j]);
-    }
-    printf("\n");
 }
 
 
 void decToOct() {
-    int n, binary[32];
+    int repeat = 1;
+    while (repeat) {
+        clearScreen();
 
-    puts("Insert a Decimal Number here: ");
-    scanf("%d", &n);
+        int n, octal[32];
 
-    int i = 0;
-    while (n > 0) {
-        binary[i] = n % 8;
-        n = n / 8;
-        i++;
+        puts("Insert a Decimal Number here: ");
+        if (scanf("%d", &n) != 1) {
+            while (getchar() != '\n');
+            printf("Invalid input.\n");
+        }
+
+        if (n == 0) {
+            puts("Octal: 0");
+            printf("\n");
+        } else {
+            int i = 0;
+            int temp = n;
+            while (temp > 0 && i < 32) {
+                octal[i] = temp % 8;
+                temp = temp / 8;
+                i++;
+            }
+
+            puts("Octal: ");
+            for (int j = i - 1; j >= 0; j--) {
+                printf("%d", octal[j]);
+            }
+            printf("\n");
+        }
+
+        char tmp;
+        printf("again? (y/n) : ");
+        scanf(" %c", &tmp);
+        if (tmp == 'y' || tmp == 'Y') repeat = 1;
+        else repeat = 0;
     }
-
-    puts("Octal: ");
-    for (int j = i - 1; j >= 0; j--) {
-        printf("%d", binary[j]);
-    }
-    printf("\n");
 }
 
 
@@ -334,38 +374,32 @@ void octToDec() {
         printf("====================================\n");
         printf("          OCTAL TO DECIMAL          \n");
         printf("====================================\n\n");
-        printf("Enter an Octal Number: ");
-        scanf("%d", &inp);
 
-        int original = inp;
-        int ans = 0;
-        int exp = 0;
-        int valid = 1;
+        if (scanf("%d", &inp) != 1) {
+            while (getchar() != '\n');
+            printf("Invalid input.\n");
+        } else {
+            int original = inp;
+            int ans = 0;
+            int multiplier = 1;
+            int valid = 1;
+            int temp = inp;
 
-        while (inp > 0) {
-            int totalPow = 8;
-            int lastDig = inp % 10;
-
-            if (lastDig > 7) {
-                printf("Error: Digit '%d' is not an octal digit!\n", lastDig);
-                valid = 0;
-                break;
-            }
-
-            if (exp == 0) ans += lastDig;
-            else {
-                for (int i = 0; i < exp - 1; i++) {
-                    totalPow *= 8;
+            while (temp > 0) {
+                int lastDig = temp % 10;
+                if (lastDig > 7) {
+                    printf("Error: Digit '%d' is not an octal digit!\n", lastDig);
+                    valid = 0;
+                    break;
                 }
-                ans = ans + (totalPow * lastDig);
+                ans += lastDig * multiplier;
+                multiplier *= 8;
+                temp /= 10;
             }
 
-            inp /= 10;
-            exp++;
-        }
-
-        if (valid) {
-            printf("Decimal value of %d (base 8) is: %d\n", original, ans);
+            if (valid) {
+                printf("Decimal value of %d (base 8) is: %d\n", original, ans);
+            }
         }
 
         char tmp;
@@ -386,40 +420,50 @@ void hexToDec() {
 
         char hex[100];
         int decimal = 0;
-        int base = 1;
-        int valid = 1;
+        int valid = 0; 
 
         printf("=====================================\n");
         printf("             HEX TO DECIMAL          \n");
         printf("=====================================\n\n");
 
-        printf("Enter hexadecimal number : ");
-        scanf("%s", hex);
-
-        int length = 0;
-        while (hex[length] != '\0') length++;
-
-        for (int i = length - 1; i >= 0; i--) {
-            char c = hex[i];
-
-            if (c >= 'a' && c <= 'f') {
-                c = c - ('a' - 'A');
+        while (!valid) {
+            printf("Enter hexadecimal number : ");
+            if (scanf("%99s", hex) != 1) {
+                while (getchar() != '\n');
+                printf("Invalid input.\n");
+                continue;
             }
 
-            int value;
+            int length = 0;
+            while (hex[length] != '\0') length++;
 
-            if (c >= '0' && c <= '9') {
-                value = c - '0';
-            } else if (c >= 'A' && c <= 'F') {
-                value = c - 'A' + 10;
+            decimal = 0;
+            int base = 1;
+            int ok = 1;
+
+            for (int i = length - 1; i >= 0; i--) {
+                char c = hex[i];
+                if (c >= 'a' && c <= 'f') c = c - ('a' - 'A');
+
+                int value;
+                if (c >= '0' && c <= '9') {
+                    value = c - '0';
+                } else if (c >= 'A' && c <= 'F') {
+                    value = c - 'A' + 10;
+                } else {
+                    ok = 0;
+                    break;
+                }
+
+                decimal += value * base;
+                base *= 16;
+            }
+
+            if (!ok) {
+                printf("Invalid input! Only characters 0-9 and A-F are allowed.\n");
             } else {
-                printf("\nInvalid input!\n");
-                valid = 0;
-                break;
+                valid = 1;
             }
-
-            decimal += value * base;
-            base *= 16;
         }
 
         if (valid) {
@@ -437,52 +481,104 @@ void hexToDec() {
 
 
 void power() {
-    double v, a;
+    int repeat = 1;
+    while (repeat) {
+        clearScreen();
 
-    printf("Enter the Voltage (Volt) value:\n");
-    scanf("%lf", &v);
+        double v, a;
 
-    printf("Enter the Current (Ampere) value:\n");
-    scanf("%lf", &a);
+        printf("Enter the Voltage (Volt) value:\n");
+        if (scanf("%lf", &v) != 1) {
+            while (getchar() != '\n');
+            printf("Invalid input.\n");
+        }
 
-    printf("Electrical Power Value:\n");
-    printf("%.2f Watt\n", v * a);
+        printf("Enter the Current (Ampere) value:\n");
+        if (scanf("%lf", &a) != 1) {
+            while (getchar() != '\n');
+            printf("Invalid input.\n");
+        }
+
+        printf("Electrical Power Value:\n");
+        printf("%.2f Watt\n", v * a);
+
+        char tmp;
+        printf("again? (y/n) : ");
+        scanf(" %c", &tmp);
+
+        if (tmp == 'y' || tmp == 'Y') repeat = 1;
+        else repeat = 0;
+    }
 }
 
 
 void series() {
-    int n;
-    double x = 0;
+    int repeat = 1;
+    while (repeat) {
+        clearScreen();
 
-    printf("Number of resistors:\n");
-    scanf("%d", &n);
+        int n;
+        double x = 0;
 
-    double arr[n];
+        printf("Number of resistors:\n");
+        if (scanf("%d", &n) != 1) {
+            while (getchar() != '\n');
+            printf("Invalid input.\n");
+        } else if (n <= 0) {
+            printf("Invalid number of resistors.\n");
+        } else {
+            double arr[n];
 
-    printf("Enter the resistor value (for more than one resistor separate them by space):\n");
-    for (int i = 0; i < n; i++) scanf("%lf", &arr[i]);
+            printf("Enter the resistor value (for more than one resistor separate them by space):\n");
+            for (int i = 0; i < n; i++) scanf("%lf", &arr[i]);
 
-    for (int i = 0; i < n; i++) x += arr[i];
+            for (int i = 0; i < n; i++) x += arr[i];
 
-    printf("Total Resistance Value:\n");
-    printf("%.2f Ohm\n", x);
+            printf("Total Resistance Value:\n");
+            printf("%.2f Ohm\n", x);
+        }
+
+        char tmp;
+        printf("again? (y/n) : ");
+        scanf(" %c", &tmp);
+
+        if (tmp == 'y' || tmp == 'Y') repeat = 1;
+        else repeat = 0;
+    }
 }
 
 
 void parallel() {
-    int n;
-    double x = 0;
+    int repeat = 1;
+    while (repeat) {
+        clearScreen();
 
-    printf("Number of resistors:\n");
-    scanf("%d", &n);
+        int n;
+        double x = 0;
 
-    double arr[n];
+        printf("Number of resistors:\n");
+        if (scanf("%d", &n) != 1) {
+            while (getchar() != '\n');
+            printf("Invalid input.\n");
+        } else if (n <= 0) {
+            printf("Invalid number of resistors.\n");
+        } else {
+            double arr[n];
 
-    printf("Enter the resistor value (for more than one resistor separate them by space):\n");
-    for (int i = 0; i < n; i++) scanf("%lf", &arr[i]);
+            printf("Enter the resistor value (for more than one resistor separate them by space):\n");
+            for (int i = 0; i < n; i++) scanf("%lf", &arr[i]);
 
-    for (int i = 0; i < n; i++) x += 1 / arr[i];
+            for (int i = 0; i < n; i++) x += 1.0 / arr[i];
 
-    printf("Total Resistance Value:\n");
-    printf("%.2f Ohm\n", 1 / x);
+            printf("Total Resistance Value:\n");
+            printf("%.2f Ohm\n", 1 / x);
+        }
+
+        char tmp;
+        printf("again? (y/n) : ");
+        scanf(" %c", &tmp);
+
+        if (tmp == 'y' || tmp == 'Y') repeat = 1;
+        else repeat = 0;
+    }
 }
