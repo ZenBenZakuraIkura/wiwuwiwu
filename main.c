@@ -111,7 +111,7 @@ int main(void) {
                             octToDec();
                             break;
                         case 4:
-                            printf("function 4 will go here later\n");
+                            hexToDec();
                             break;
                         default:
                             puts("Not in the Menu\n");
@@ -296,7 +296,9 @@ void octToDec() {
 
     while (repeat) {
         clearScreen();
-        printf("========= OCTAL TO DECIMAL =========\n");
+        printf("====================================\n");
+        printf("          OCTAL TO DECIMAL          \n");
+        printf("====================================\n\n");
         printf("Enter an Octal Number: ");
         scanf("%d", &inp);
 
@@ -343,6 +345,63 @@ void octToDec() {
     }
 }
 
-void hexToDec(){
+void hexToDec() {
+    int repeat = 1;
 
+    while (repeat) {
+        clearScreen();
+        char hex[100];
+        int decimal = 0;
+        int base = 1;
+        int valid = 1;
+
+        printf("=====================================\n");
+        printf("             HEX TO DECIMAL          \n");
+        printf("=====================================\n\n");
+
+        printf("Enter hexadecimal number : ");
+        scanf("%s", hex);
+
+        int length = 0;
+        while (hex[length] != '\0') {
+            length++;
+        }
+
+        for (int i = length - 1; i >= 0; i--) {
+            char c = hex[i];
+
+            if (c >= 'a' && c <= 'f') {
+                c = c - ('a' - 'A');
+            }
+
+            int value;
+
+            if (c >= '0' && c <= '9') {
+                value = c - '0';
+            } else if (c >= 'A' && c <= 'F') {
+                value = c - 'A' + 10;
+            } else {
+                printf("\nInvalid input!\n");
+                valid = 0;
+                break;
+            }
+
+            decimal += value * base;
+            base *= 16;
+        }
+
+        if (valid) {
+            printf("\nDecimal value : %d\n\n", decimal);
+        }
+
+        char tmp;
+        printf("Convert another? (y/n) : ");
+        scanf(" %c", &tmp);
+
+        if (tmp == 'y' || tmp == 'Y') {
+            repeat = 1;
+        } else {
+            repeat = 0;
+        }
+    }
 }
