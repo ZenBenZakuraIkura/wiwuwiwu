@@ -1,15 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 void ohmsLaw();
 void decToBin();
 void decToOct();
 void octToDec();
+void hexToDec();
 void clearScreen();
 void power();
 void series();
 void parallel();
 void hexToDec();
+void binToDec();
 
 int main(void) {
     int menu_main;
@@ -34,9 +37,9 @@ int main(void) {
                 do {
                     puts("\n====<<< Electrical Calculator Kit >>>====");
                     puts("1.  Ohm`s Law");
-                    puts("2.  Machine 22");
-                    puts("3.  Machine 23");
-                    puts("4.  Machine 24");
+                    puts("2.  Power");
+                    puts("3.  Series");
+                    puts("4.  Parallel");
                     puts("Press 0 to enter previous menu");
 
                     if (scanf("%d", &menu_sec) != 1) return 1;
@@ -48,15 +51,15 @@ int main(void) {
                             break;
 
                         case 2:
-                            printf("function 2 will go here later\n");
+                            power();
                             break;
 
                         case 3:
-                            printf("function 3 will go here later\n");
+                            series();
                             break;
 
                         case 4:
-                            printf("function 4 will go here later\n");
+                            parallel();
                             break;
 
                         default:
@@ -72,7 +75,7 @@ int main(void) {
                     clearScreen();
                     puts("\n====<<< Number Conversion Calculator Kit >>>====");
                     puts("1.  Decimal to other forms");
-                    puts("2.  Machine 32");
+                    puts("2.  Binary To Decimal");
                     puts("3.  Oktal to decimal");
                     puts("4.  Hexadecimal to decimal");
                     puts("Press 0 to enter previous menu");
@@ -86,7 +89,7 @@ int main(void) {
                                 puts("\n====<<< Number Conversion Calculator Kit >>>====");
                                 puts("1.  Decimal to Binary");
                                 puts("2.  Decimal to Octal");
-                                puts("3.  Decimal to Hexadecimal (Belum aku sentuh)");
+                                puts("3.  Decimal to Hexadecimal ");
                                 puts("Press 0 to enter previous menu");
 
                                 if (scanf("%d", &menu_third) != 1) return 1;
@@ -101,6 +104,10 @@ int main(void) {
                                         decToOct();
                                         break;
 
+                                    case 3:
+                                        hexToDec();
+                                        break;
+
                                     default:
                                         puts("Not in the Menu\n");
                                         break;
@@ -110,7 +117,7 @@ int main(void) {
                             break;
 
                         case 2:
-                            printf("function 2 will go here later\n");
+                            binToDec();
                             break;
 
                         case 3:
@@ -138,7 +145,6 @@ int main(void) {
 
     return 0;
 }
-
 
 void decToBin() {
     int repeat = 1;
@@ -180,7 +186,6 @@ void decToBin() {
     }
 }
 
-
 void decToOct() {
     int repeat = 1;
     while (repeat) {
@@ -220,7 +225,6 @@ void decToOct() {
         else repeat = 0;
     }
 }
-
 
 void ohmsLaw() {
     int again = 1;
@@ -354,7 +358,6 @@ void ohmsLaw() {
     clearScreen();
 }
 
-
 void clearScreen() {
 #ifdef _WIN32
     system("cls");
@@ -362,7 +365,6 @@ void clearScreen() {
     system("clear");
 #endif
 }
-
 
 void octToDec() {
     int inp;
@@ -410,7 +412,6 @@ void octToDec() {
         else repeat = 0;
     }
 }
-
 
 void hexToDec() {
     int repeat = 1;
@@ -479,7 +480,53 @@ void hexToDec() {
     }
 }
 
+void binToDec(){
+    int repeat = 1;
 
+    while (repeat) {
+        clearScreen();
+
+        int binary, temp, digit;
+        int decimal = 0;
+        int multiplier = 1;
+        int valid = 1;
+
+        printf("====== Binary To Decimal ======\n");
+
+        printf("Enter a binary number: ");
+        scanf("%d", &binary);
+
+        temp = binary;
+
+        while (temp > 0) {
+            digit = temp % 10;
+
+            if (digit != 0 && digit != 1) {
+                valid = 0;
+                break;
+            }
+
+            decimal = decimal + digit * multiplier;
+
+            multiplier = multiplier * 2;
+            temp = temp / 10;
+        }
+
+        if (valid == 1) {
+            printf("Decimal value: %d\n", decimal);
+        } else {
+            printf("Error: Input contains non-binary digits.\n");
+        }
+
+        char tmp;
+        printf("Again? (y/n): ");
+        scanf(" %c", &tmp);
+
+        if (tmp == 'y' || tmp == 'Y') repeat = 1;
+        else repeat = 0;
+    }
+}
+ 
 void power() {
     int repeat = 1;
     while (repeat) {
@@ -510,7 +557,6 @@ void power() {
         else repeat = 0;
     }
 }
-
 
 void series() {
     int repeat = 1;
@@ -546,7 +592,6 @@ void series() {
         else repeat = 0;
     }
 }
-
 
 void parallel() {
     int repeat = 1;
