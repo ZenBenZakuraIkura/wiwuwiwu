@@ -5,9 +5,9 @@ Group: **3**
 
 | No | Name | Student ID | Study Program |
 |----|------|-------------|----------------|
-| 1  | Sabina Cheerly Nadapdap | …………… | …………… |
-| 2  | Benjamin Cassius iwan | …………… | …………… |
-| 3  | Narendra Andhi Putra Pratama | …………… | …………… |
+| 1  | Sabina Cheerly Nadapdap |5022251090| Electrical Engineering |
+| 2  | Benjamin Cassius iwan |5022251088 | Electrical Engineering |
+| 3  | Narendra Andhi Putra Pratama | 5022251034 | Electrical Engineering |
 
 **Lecturer:** 
 
@@ -55,22 +55,26 @@ This project is created to fulfill the final task of the **Basic Programming** c
 
 ### Circuits Calculator Menu
 1. Ohm’s Law  
-2. Machine 22 (placeholder)  
-3. Machine 23 (placeholder)  
-4. Machine 24 (placeholder)
+2. Power Calculation  
+3. Series Resistance  
+4. Parallel Resistance
+0. Exit
 
 ### Number Conversion Calculator Menu
 1. Decimal to Other Forms
-2. Machine 32 (placeholder)
-3. Octal to Decimal  
-4. Hexadecimal to Decimal
+2. Other Bases to Decimal
+0. Exit
 
-### Decimal to Other Forms Menu
+### Decimal to Other Bases Menu
 1. Decimal to Binary  
 2. Decimal to Octal  
-3. Decimal to Hexadecimal (not yet implemented)
+3. Decimal to Hexadecimal
+0. Exit
 
----
+### Other Bases to Decimal Menu
+1. Binary to Decimal
+2. Octal to Decimal
+3. Hexadecimal to Decimal
 
 # Function Documentation
 
