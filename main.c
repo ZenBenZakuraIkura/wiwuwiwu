@@ -5,6 +5,7 @@
 void ohmsLaw();
 void decToBin();
 void decToOct();
+void decToHex();
 void octToDec();
 void hexToDec();
 void clearScreen();
@@ -86,6 +87,7 @@ int main(void) {
                     switch (menu_sec) {
                         case 1:
                             do {
+                                clearScreen();
                                 puts("\n====<<< Number Conversion Calculator Kit >>>====");
                                 puts("1.  Decimal to Binary");
                                 puts("2.  Decimal to Octal");
@@ -105,7 +107,7 @@ int main(void) {
                                         break;
 
                                     case 3:
-                                        hexToDec();
+                                        decToHex();
                                         break;
 
                                     default:
@@ -153,14 +155,17 @@ void decToBin() {
 
         int n, binary[32];
 
-        puts("Insert a Decimal Number here: ");
+        printf("====================================\n");
+        printf("             DEC TO BINARY          \n");
+        printf("====================================\n\n");
+        printf("Insert a Decimal Number here: ");
         if (scanf("%d", &n) != 1) {
             while (getchar() != '\n');
             printf("Invalid input.\n");
         }
 
         if (n == 0) {
-            puts("Binary: 0");
+            printf("\nBinary: 0\n");
             printf("\n");
         } else {
             int i = 0;
@@ -171,11 +176,11 @@ void decToBin() {
                 i++;
             }
 
-            puts("Binary: ");
+            printf("\nBinary: ");
             for (int j = i - 1; j >= 0; j--) {
                 printf("%d", binary[j]);
             }
-            printf("\n");
+            printf("\n\n");
         }
 
         char tmp;
@@ -193,7 +198,11 @@ void decToOct() {
 
         int n, octal[32];
 
-        puts("Insert a Decimal Number here: ");
+        printf("====================================\n");
+        printf("       DECIMAL TO OCTADECIMAL       \n");
+        printf("====================================\n\n");
+
+        printf("Insert a Decimal Number here: ");
         if (scanf("%d", &n) != 1) {
             while (getchar() != '\n');
             printf("Invalid input.\n");
@@ -211,11 +220,11 @@ void decToOct() {
                 i++;
             }
 
-            puts("Octal: ");
+            printf("\nOctal: ");
             for (int j = i - 1; j >= 0; j--) {
                 printf("%d", octal[j]);
             }
-            printf("\n");
+            printf("\n\n");
         }
 
         char tmp;
@@ -224,6 +233,54 @@ void decToOct() {
         if (tmp == 'y' || tmp == 'Y') repeat = 1;
         else repeat = 0;
     }
+}
+
+void decToHex() {
+
+    int repeat = 1;
+    while (repeat) {
+        clearScreen();
+        char hex[32];
+        int n;
+
+        printf("====================================\n");
+        printf("       DECIMAL TO HEXADECIMAL       \n");
+        printf("====================================\n\n");
+
+        printf("Insert a Decimal Number here: ");
+            
+        scanf("%d", &n);
+
+        if (n == 0) {
+            printf("0\n");
+            break;
+        }
+
+        int i = 0;
+        while (n > 0) {
+            int rem = n % 16;
+            if (rem < 10)
+                hex[i] = rem + '0';
+            else
+                hex[i] = rem - 10 + 'A';
+            n /= 16;
+            i++;
+        }
+
+        printf("\nHexadecimal: ");
+        for (int j = i - 1; j >= 0; j--) {
+            printf("%c", hex[j]);
+        }
+
+        printf("\n\n");
+
+        char tmp;
+        printf("again? (y/n) : ");
+        scanf(" %c", &tmp);
+        if (tmp == 'y' || tmp == 'Y') repeat = 1;
+        else repeat = 0;
+    }
+
 }
 
 void ohmsLaw() {
@@ -377,6 +434,7 @@ void octToDec() {
         printf("          OCTAL TO DECIMAL          \n");
         printf("====================================\n\n");
 
+        printf("Input your octal number: ");
         if (scanf("%d", &inp) != 1) {
             while (getchar() != '\n');
             printf("Invalid input.\n");
@@ -400,7 +458,7 @@ void octToDec() {
             }
 
             if (valid) {
-                printf("Decimal value of %d (base 8) is: %d\n", original, ans);
+                printf("\nDecimal value of %d (base 8) is: %d\n\n", original, ans);
             }
         }
 
@@ -513,7 +571,7 @@ void binToDec(){
         }
 
         if (valid == 1) {
-            printf("Decimal value: %d\n", decimal);
+            printf("\nDecimal value: %d\n\n", decimal);
         } else {
             printf("Error: Input contains non-binary digits.\n");
         }
