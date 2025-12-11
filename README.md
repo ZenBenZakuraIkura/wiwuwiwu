@@ -9,7 +9,7 @@ Group: **3**
 | 2  | Benjamin Cassius iwan |5022251088 | Electrical Engineering |
 | 3  | Narendra Andhi Putra Pratama | 5022251034 | Electrical Engineering |
 
-**Lecturer:** 
+**Lecturer: Pak Arta** 
 
 ---
 
@@ -51,25 +51,21 @@ This project is created to fulfill the final task of the **Basic Programming** c
 ### Main Menu
 1. **Circuits Calculator**
 2. **Number Conversion Calculator**
-0. **Exit**
 
 ### Circuits Calculator Menu
 1. Ohm’s Law  
 2. Power Calculation  
 3. Series Resistance  
 4. Parallel Resistance
-0. Exit
 
 ### Number Conversion Calculator Menu
 1. Decimal to Other Forms
 2. Other Bases to Decimal
-0. Exit
 
 ### Decimal to Other Bases Menu
 1. Decimal to Binary  
 2. Decimal to Octal  
 3. Decimal to Hexadecimal
-0. Exit
 
 ### Other Bases to Decimal Menu
 1. Binary to Decimal
@@ -78,10 +74,27 @@ This project is created to fulfill the final task of the **Basic Programming** c
 
 # Function Documentation
 
+## List Function
+
+```c
+   void ohmsLaw();
+   void decToBin();
+   void decToOct();
+   void decToHex();
+   void octToDec();
+   void hexToDec();
+   void clearScreen();
+   void power();
+   void series();
+   void parallel();
+   void hexToDec();
+   void binToDec();
+```
+
 ## 1. `clearScreen()`
 Clears the terminal screen for a cleaner program interface.  
-- On Windows → `cls`  
-- On Linux/Mac → `clear`
+- On Windows use `cls`  
+- On Linux/Mac use `clear`
 
 ---
 
@@ -173,7 +186,95 @@ gcc main.c -o electrical_calculator
 ./electrical_calculator.exe
 ```
 
-## Sample Output
-```bash
+---
 
+## Initial Display
+```terminator
+===<<< Electrical Calculator Kit >>>====
+[1] Circuits Calculator
+[2] Number Conversion Calculator
+Press 0 to Exit
+```
+
+## Sample Output Circuit Calculators
+```
+====<<< Electrical Calculator Kit >>>====
+1.  Ohm`s Law
+2.  Power
+3.  Series
+4.  Parallel
+Press 0 to enter previous menu
+```
+
+```
+====== Ohm's Law =======
+[1] Find Voltage (V)
+[2] Find Current (I)
+[3] Find Resistance (R)
+Enter your choice (1/2/3): 
+```
+
+```
+======= Ohm's Law =======
+Calculating Voltage Across a Resistor
+Enter Current (I) in Amperes: 12
+Enter Resistance value (Ohms): 14
+The voltage across a 14.00 Ohm resistor with 12.00 A current is: 168.00 V
+Do you want to try again? (y/n): y
+```
+
+
+
+## Sample Output Number Conversion
+
+```
+====<<< Number Conversion Calculator Kit >>>====
+1.  Decimal to other forms
+2.  Binary To Decimal
+3.  Oktal to decimal
+4.  Hexadecimal to decimal
+Press 0 to enter previous menu
+```
+```
+====<<< Number Conversion Calculator Kit >>>====
+1.  Decimal to Binary
+2.  Decimal to Octal
+3.  Decimal to Hexadecimal 
+Press 0 to enter previous menu
+```
+
+```
+====================================
+             DEC TO BINARY          
+====================================
+
+Insert a Decimal Number here: 123
+
+Binary: 1111011
+
+again? (y/n) : y
+```
+
+```
+=====================================
+             HEX TO DECIMAL          
+=====================================
+
+Enter hexadecimal number : 1F5
+
+Decimal value : 501
+
+Convert another? (y/n) : y
+```
+
+```
+====================================
+          OCTAL TO DECIMAL          
+====================================
+
+Input your octal number: 123
+
+Decimal value of 123 (base 8) is: 83
+
+Do you want to convert again? (y/n): y
 ```
