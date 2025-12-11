@@ -1,4 +1,9 @@
+<p align="center">
+  <img src="src_images/lambang-its-png-v1.png" alt="Diagram" style="max-width:20%; height:10%;">
+</p>
+
 # Final Project for "Dasar Pemrograman"
+
 
 ## Group Identity
 Group: **3**
@@ -101,6 +106,14 @@ Clears the terminal screen for a cleaner program interface.
 ## 2. Electrical Calculation Functions
 
 ### a. `ohmsLaw()`
+
+<p align="center">
+  <img src="src_images/Ohms-triangle.png" alt="Diagram" style="max-width:60%; height:10%;">
+  <p align = "center" >
+      <i>Ohm's Triangle</i>
+  </p>
+</p>
+
 Used to calculate:
 - **Voltage** (V = I × R)  
 - **Current** (I = V / R)  
@@ -121,8 +134,16 @@ Input validation ensures only valid numeric inputs are processed.
 ---
 
 ### c. `series()`
+<p align="center">
+  <img src="src_images/Series-Circuit-Lightbulbs.gif" alt="Diagram" style="max-width:60%; height:10%;">
+  <p align = "center" >
+      <i>Series Circuit Picture</i>
+  </p>
+</p>
 Calculates **total series resistance** by summing all resistors:  
 R_total = R1 + R2 + … + Rn
+
+
 
 Features:
 - Accepts the number of resistors.  
@@ -132,6 +153,13 @@ Features:
 ---
 
 ### d. `parallel()`
+
+<p align="center">
+  <img src="src_images/Parallel-Circuit-Lightbulbs.gif" alt="Diagram" style="max-width:60%; height:10%;">
+  <p align = "center" >
+      <i>Parallel Circuit Picture</i>
+  </p>
+</p>
 Calculates **total parallel resistance**:
 
 1/R_total = 1/R1 + 1/R2 + … + 1/Rn
@@ -278,3 +306,4 @@ Decimal value of 123 (base 8) is: 83
 
 Do you want to convert again? (y/n): y
 ```
+---
