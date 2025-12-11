@@ -1,6 +1,3 @@
-<img src="src_images/lambang-its-png-v1.png" alt="Diagram" style="max-width:20%; height:auto;" />
-
-
 # Final Project for "Dasar Pemrograman"
 
 
