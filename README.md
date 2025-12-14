@@ -60,18 +60,12 @@ This project is created to fulfill the final task of the **Basic Programming** c
 4. Parallel Resistance
 
 ### Number Conversion Calculator Menu
-1. Decimal to Other Forms
-2. Other Bases to Decimal
-
-### Decimal to Other Bases Menu
 1. Decimal to Binary  
 2. Decimal to Octal  
 3. Decimal to Hexadecimal
-
-### Other Bases to Decimal Menu
-1. Binary to Decimal
-2. Octal to Decimal
-3. Hexadecimal to Decimal
+4. Binary to Decimal
+5. Octal to Decimal
+6. Hexadecimal to Decimal
 
 # Function Documentation
 
@@ -183,14 +177,28 @@ Converts a decimal number to **octal**:
 
 ---
 
-### c. `octToDec()`
+### c. `decToHex()`
+Converts a decimal number to **hexadecimal**:
+- Uses repeated division by 16.  
+- Handles zero input and invalid values.
+
+---
+
+### d. `binToDec()`
+Converts an octal number to decimal:
+- Strict validation ensures digits do not exceed 1.  
+- Computes values based on digit position and powers of 2.
+
+---
+
+### e. `octToDec()`
 Converts an octal number to decimal:
 - Strict validation ensures digits do not exceed 7.  
 - Computes values based on digit position and powers of 8.
 
 ---
 
-### d. `hexToDec()`
+### f. `hexToDec()`
 Converts a hexadecimal number to decimal:
 - Accepts digits 0–9, A–F, and a–f.  
 - Converts characters into their numeric values.  
