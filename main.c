@@ -523,39 +523,48 @@ void hexToDec() {
     }
 }
 
-void binToDec(){
+void binToDec() {
     int repeat = 1;
 
     while (repeat) {
         clearScreen();
 
-        int binary, temp, digit;
+        int binary;
+        int temp, digit;
         int decimal = 0;
         int multiplier = 1;
         int valid = 1;
 
         printf("====== Binary To Decimal ======\n");
-
         printf("Enter a binary number: ");
-        scanf("%d", &binary);
+
+        if (scanf("%d", &binary) != 1) {
+            printf("Invalid input. Please enter a binary number.\n");
+            clearInputBuffer();
+            pause();
+            continue;
+        }
 
         temp = binary;
 
-        while (temp > 0) {
-            digit = temp % 10;
+        if (temp == 0) {
+            decimal = 0;
+        } else {
+            while (temp > 0) {
+                digit = temp % 10;
 
-            if (digit != 0 && digit != 1) {
-                valid = 0;
-                break;
+                if (digit != 0 && digit != 1) {
+                    valid = 0;
+                    break;
+                }
+
+                decimal += digit * multiplier;
+                multiplier *= 2;
+                temp /= 10;
             }
-
-            decimal = decimal + digit * multiplier;
-
-            multiplier = multiplier * 2;
-            temp = temp / 10;
         }
 
-        if (valid == 1) {
+        if (valid) {
             printf("\nDecimal value: %d\n\n", decimal);
         } else {
             printf("Error: Input contains non-binary digits.\n");
@@ -564,9 +573,12 @@ void binToDec(){
         char tmp;
         printf("Again? (y/n): ");
         scanf(" %c", &tmp);
+        clearInputBuffer();
 
-        if (tmp == 'y' || tmp == 'Y') repeat = 1;
-        else repeat = 0;
+        if (tmp == 'y' || tmp == 'Y')
+            repeat = 1;
+        else
+            repeat = 0;
     }
 }
 
@@ -581,12 +593,18 @@ void power() {
         if (scanf("%lf", &v) != 1) {
             while (getchar() != '\n');
             printf("Invalid input.\n");
+            pause();
+            clearScreen();
+            continue;
         }
 
         printf("Enter the Current (Ampere) value:\n");
         if (scanf("%lf", &a) != 1) {
             while (getchar() != '\n');
             printf("Invalid input.\n");
+            pause();
+            clearScreen();
+            continue;
         }
 
         printf("Electrical Power Value:\n");
@@ -603,71 +621,97 @@ void power() {
 
 void series() {
     int repeat = 1;
+
     while (repeat) {
         clearScreen();
 
         int n;
-        double x = 0;
+        double total = 0.0;
 
         printf("Number of resistors:\n");
         if (scanf("%d", &n) != 1) {
             while (getchar() != '\n');
             printf("Invalid input.\n");
-        } else if (n <= 0) {
+        }
+        else if (n <= 0) {
             printf("Invalid number of resistors.\n");
-        } else {
+        }
+        else {
             double arr[n];
+            int valid = 1;
 
-            printf("Enter the resistor value (for more than one resistor separate them by space):\n");
-            for (int i = 0; i < n; i++) scanf("%lf", &arr[i]);
+            printf("Enter the resistor value(s):\n");
+            for (int i = 0; i < n; i++) {
+                if (scanf("%lf", &arr[i]) != 1) {
+                    while (getchar() != '\n');
+                    printf("Invalid input.\n");
+                    valid = 0;
+                    break;
+                }
+            }
 
-            for (int i = 0; i < n; i++) x += arr[i];
+            if (valid) {
+                for (int i = 0; i < n; i++)
+                    total += arr[i];
 
-            printf("Total Resistance Value:\n");
-            printf("%.2f Ohm\n", x);
+                printf("Total Resistance Value:\n");
+                printf("%.2f Ohm\n", total);
+            }
         }
 
         char tmp;
         printf("again? (y/n) : ");
         scanf(" %c", &tmp);
 
-        if (tmp == 'y' || tmp == 'Y') repeat = 1;
-        else repeat = 0;
+        repeat = (tmp == 'y' || tmp == 'Y');
     }
 }
 
 void parallel() {
     int repeat = 1;
+
     while (repeat) {
         clearScreen();
 
         int n;
-        double x = 0;
+        double sum = 0.0;
 
         printf("Number of resistors:\n");
         if (scanf("%d", &n) != 1) {
             while (getchar() != '\n');
             printf("Invalid input.\n");
-        } else if (n <= 0) {
+        }
+        else if (n <= 0) {
             printf("Invalid number of resistors.\n");
-        } else {
+        }
+        else {
             double arr[n];
+            int valid = 1;
 
-            printf("Enter the resistor value (for more than one resistor separate them by space):\n");
-            for (int i = 0; i < n; i++) scanf("%lf", &arr[i]);
+            printf("Enter the resistor value(s):\n");
+            for (int i = 0; i < n; i++) {
+                if (scanf("%lf", &arr[i]) != 1 || arr[i] == 0.0) {
+                    while (getchar() != '\n');
+                    printf("Invalid input.\n");
+                    valid = 0;
+                    break;
+                }
+            }
 
-            for (int i = 0; i < n; i++) x += 1.0 / arr[i];
+            if (valid) {
+                for (int i = 0; i < n; i++)
+                    sum += 1.0 / arr[i];
 
-            printf("Total Resistance Value:\n");
-            printf("%.2f Ohm\n", 1 / x);
+                printf("Total Resistance Value:\n");
+                printf("%.2f Ohm\n", 1.0 / sum);
+            }
         }
 
         char tmp;
         printf("again? (y/n) : ");
         scanf(" %c", &tmp);
 
-        if (tmp == 'y' || tmp == 'Y') repeat = 1;
-        else repeat = 0;
+        repeat = (tmp == 'y' || tmp == 'Y');
     }
 }
 
