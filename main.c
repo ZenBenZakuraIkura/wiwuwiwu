@@ -20,15 +20,14 @@ int main(void) {
     int menu_main = -1;
     int menu_sec = -1;
 
-    clearScreen();
-    puts("====<<< Electrical Calculator Kit >>>====");
-    puts("[1] Circuits Calculator");
-    puts("[2] Number Conversion Calculator");
-    puts("Press 0 to Exit");
-
     do {
+
+        clearScreen();
+        puts("====<<< Electrical Calculator Kit >>>====");
+        puts("[1] Circuits Calculator");
+        puts("[2] Number Conversion Calculator");
+        puts("Press 0 to Exit");
         scanf("%d", &menu_main);
-        clearInputBuffer();
         if (menu_main == 0) break;
 
         switch (menu_main) {
@@ -42,6 +41,7 @@ int main(void) {
                     puts("4.  Parallel");
                     puts("Press 0 to enter previous menu");
 
+                    clearInputBuffer();
                     scanf("%d", &menu_sec);
                     clearInputBuffer();
                     if (menu_sec == 0) break;
@@ -67,6 +67,7 @@ int main(void) {
                             printf("Not in the Menu\n");
                             pause();
                             clearScreen();
+                            break;
                     }
 
                 } while (1);
@@ -116,6 +117,7 @@ int main(void) {
                         default:
                             printf("Not in the Menu\n");
                             pause();
+                            break;
                     }
 
                 } while (1);
@@ -257,8 +259,6 @@ void ohmsLaw() {
         if (temp == 'y' || temp == 'Y') again = 1;
         else if (temp == 'n' || temp == 'N') again = 0;
         else printf("Invalid Input");
-
-        clearInputBuffer();
 
     } while (again == 1);
 
