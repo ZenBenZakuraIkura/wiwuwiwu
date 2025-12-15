@@ -3,47 +3,47 @@
 #include <math.h>
 
 void ohmsLaw();
-void decToBin();
-void decToOct();
-void decToHex();
-void octToDec();
-void hexToDec();
-void clearScreen();
 void power();
 void series();
 void parallel();
-void hexToDec();
+void decToBin();
+void decToOct();
+void decToHex();
 void binToDec();
+void octToDec();
+void hexToDec();
+void clearInputBuffer();
+void pause();
+void clearScreen();
 
 int main(void) {
-    int menu_main;
-    int menu_sec;
-    int menu_third;
+    int menu_main = -1;
+    int menu_sec = -1;
+
+    clearScreen();
+    puts("====<<< Electrical Calculator Kit >>>====");
+    puts("[1] Circuits Calculator");
+    puts("[2] Number Conversion Calculator");
+    puts("Press 0 to Exit");
 
     do {
-        clearScreen();
-        puts("\n====<<< Electrical Calculator Kit >>>====");
-        puts("[1] Circuits Calculator");
-        puts("[2] Number Conversion Calculator");
-        puts("Press 0 to Exit");
-
-        if (scanf("%d", &menu_main) != 1) return 1;
+        scanf("%d", &menu_main);
+        clearInputBuffer();
         if (menu_main == 0) break;
 
-        clearScreen();
-
         switch (menu_main) {
-
             case 1:
                 do {
-                    puts("\n====<<< Electrical Calculator Kit >>>====");
+                    clearScreen();
+                    puts("====<<< Electrical Calculator Kit >>>====");
                     puts("1.  Ohm`s Law");
                     puts("2.  Power");
                     puts("3.  Series");
                     puts("4.  Parallel");
                     puts("Press 0 to enter previous menu");
 
-                    if (scanf("%d", &menu_sec) != 1) return 1;
+                    scanf("%d", &menu_sec);
+                    clearInputBuffer();
                     if (menu_sec == 0) break;
 
                     switch (menu_sec) {
@@ -64,8 +64,9 @@ int main(void) {
                             break;
 
                         default:
-                            puts("Not in the Menu\n");
-                            break;
+                            printf("Not in the Menu\n");
+                            pause();
+                            clearScreen();
                     }
 
                 } while (1);
@@ -74,78 +75,194 @@ int main(void) {
             case 2:
                 do {
                     clearScreen();
-                    puts("\n====<<< Number Conversion Calculator Kit >>>====");
-                    puts("1.  Decimal to other forms");
-                    puts("2.  Binary To Decimal");
-                    puts("3.  Oktal to decimal");
-                    puts("4.  Hexadecimal to decimal");
+                    puts("====<<< Number Conversion Calculator Kit >>>====");
+                    puts("1.  Decimal to Binary");
+                    puts("2.  Decimal to Octal");
+                    puts("3.  Decimal to Hexadecimal");
+                    puts("4.  Binary to Decimal");
+                    puts("5.  Octal to Decimal");
+                    puts("6.  Hexadecimal to Decimal");
                     puts("Press 0 to enter previous menu");
 
-                    if (scanf("%d", &menu_sec) != 1) return 1;
+                    scanf("%d", &menu_sec);
+                    clearInputBuffer();
                     if (menu_sec == 0) break;
 
                     switch (menu_sec) {
                         case 1:
-                            do {
-                                clearScreen();
-                                puts("\n====<<< Number Conversion Calculator Kit >>>====");
-                                puts("1.  Decimal to Binary");
-                                puts("2.  Decimal to Octal");
-                                puts("3.  Decimal to Hexadecimal ");
-                                puts("Press 0 to enter previous menu");
-
-                                if (scanf("%d", &menu_third) != 1) return 1;
-                                if (menu_third == 0) break;
-
-                                switch (menu_third) {
-                                    case 1:
-                                        decToBin();
-                                        break;
-
-                                    case 2:
-                                        decToOct();
-                                        break;
-
-                                    case 3:
-                                        decToHex();
-                                        break;
-
-                                    default:
-                                        puts("Not in the Menu\n");
-                                        break;
-                                }
-
-                            } while (1);
+                            decToBin();
                             break;
 
                         case 2:
-                            binToDec();
+                            decToOct();
                             break;
 
                         case 3:
-                            octToDec();
+                            decToHex();
                             break;
 
                         case 4:
+                            binToDec();
+                            break;
+
+                        case 5:
+                            octToDec();
+                            break;
+
+                        case 6:
                             hexToDec();
                             break;
 
                         default:
-                            puts("Not in the Menu\n");
-                            break;
+                            printf("Not in the Menu\n");
+                            pause();
                     }
 
                 } while (1);
                 break;
 
             default:
-                puts("Not in the Menu\n");
-                break;
+                printf("Not in the Menu\n");
         }
 
     } while (1);
 
     return 0;
+}
+
+void ohmsLaw() {
+    int again = 1;
+
+    do {
+        clearScreen();
+        int scan;
+
+        printf("======= Ohm's Law =======\n");
+        printf("[1] Find Voltage (V)\n");
+        printf("[2] Find Current (I)\n");
+        printf("[3] Find Resistance (R)\n");
+        printf("Enter your choice (1/2/3): ");
+
+        if (scanf("%d", &scan) != 1) {
+            while (getchar() != '\n');
+            scan = -1;
+        }
+
+        clearScreen();
+        printf("======= Ohm's Law =======\n");
+
+        float V = 0, I = 0, R = 0;
+
+        switch (scan) {
+            case 1:
+                do {
+                    printf("Calculating Voltage Across a Resistor\n");
+                    printf("Enter Current (I) in Amperes: ");
+
+                    if (scanf("%f", &I) != 1 || I < 0) {
+                        while (getchar() != '\n');
+                        printf("Invalid input. Please enter a positive number.\n\n");
+                        continue;
+                    }
+
+                    printf("Enter Resistance value (Ohms): ");
+
+                    if (scanf("%f", &R) != 1 || R < 0) {
+                        while (getchar() != '\n');
+                        printf("\nInvalid input. Please enter a positive number.\n\n");
+                        continue;
+                    }
+
+                    V = I * R;
+                    printf("The voltage across a %.2f Ohm resistor with %.2f A current is: %.2f V\n",
+                           R, I, V);
+
+                    break;
+                } while (1);
+                break;
+
+            case 2:
+                do {
+                    printf("Calculating Current in a Circuit\n");
+                    printf("Enter Voltage source (V): ");
+
+                    if (scanf("%f", &V) != 1) {
+                        while (getchar() != '\n');
+                        printf("Invalid input. Please enter a number.\n\n");
+                        continue;
+                    }
+
+                    printf("Enter Total Resistance (Ohms): ");
+
+                    if (scanf("%f", &R) != 1 || R < 0) {
+                        while (getchar() != '\n');
+                        printf("Invalid input. Please enter a positive number.\n\n");
+                        continue;
+                    }
+
+                    if (R == 0) {
+                        printf("Error: Short Circuit\n");
+                        break;
+                    }
+
+                    I = V / R;
+                    printf("The current flowing in a circuit with %.2f Ohm resistance and %.2f V source is: %.2f A\n",
+                           R, V, I);
+
+                    break;
+                } while (1);
+                break;
+
+            case 3:
+                do {
+                    printf("Calculating Resistance in a Circuit\n");
+                    printf("Enter Voltage source (V): ");
+
+                    if (scanf("%f", &V) != 1) {
+                        while (getchar() != '\n');
+                        printf("Invalid input. Please enter a number.\n");
+                        continue;
+                    }
+
+                    printf("Enter Current (I) in Amperes: ");
+
+                    if (scanf("%f", &I) != 1 || I < 0) {
+                        while (getchar() != '\n');
+                        printf("Invalid input. Please enter a positive number.\n\n");
+                        continue;
+                    }
+
+                    if (I == 0) {
+                        printf("Error: Open Circuit\n");
+                        break;
+                    }
+
+                    R = V / I;
+                    printf("The resistance in a circuit with %.2f A current and %.2f V source is: %.2f Ohms\n",
+                           I, V, R);
+
+                    break;
+                } while (1);
+                break;
+
+            default:
+                printf("Invalid choice!\n");
+                break;
+        }
+
+        printf("Do you want to try again? (y/n): ");
+        char temp;
+        scanf(" %c", &temp);
+
+        if (temp == 'y' || temp == 'Y') again = 1;
+        else if (temp == 'n' || temp == 'N') again = 0;
+        else printf("Invalid Input");
+
+        clearInputBuffer();
+
+    } while (again == 1);
+
+    clearScreen();
 }
 
 void decToBin() {
@@ -206,6 +323,14 @@ void decToOct() {
         if (scanf("%d", &n) != 1) {
             while (getchar() != '\n');
             printf("Invalid input.\n");
+
+            printf("\n");
+            char tmp;
+            printf("again? (y/n) : ");
+            scanf(" %c", &tmp);
+            if (tmp == 'y' || tmp == 'Y') repeat = 1;
+            else repeat = 0;
+            continue;
         }
 
         if (n == 0) {
@@ -224,9 +349,9 @@ void decToOct() {
             for (int j = i - 1; j >= 0; j--) {
                 printf("%d", octal[j]);
             }
-            printf("\n\n");
         }
 
+        printf("\n");
         char tmp;
         printf("again? (y/n) : ");
         scanf(" %c", &tmp);
@@ -248,7 +373,7 @@ void decToHex() {
         printf("====================================\n\n");
 
         printf("Insert a Decimal Number here: ");
-            
+
         scanf("%d", &n);
 
         if (n == 0) {
@@ -281,146 +406,6 @@ void decToHex() {
         else repeat = 0;
     }
 
-}
-
-void ohmsLaw() {
-    int again = 1;
-
-    do {
-        clearScreen();
-        int scan;
-
-        printf("======= Ohm's Law =======\n");
-        printf("[1] Find Voltage (V)\n");
-        printf("[2] Find Current (I)\n");
-        printf("[3] Find Resistance (R)\n");
-        printf("Enter your choice (1/2/3): ");
-
-        if (scanf("%d", &scan) != 1) {
-            while (getchar() != '\n');
-            scan = -1;
-        }
-
-        clearScreen();
-        printf("======= Ohm's Law =======\n");
-
-        float V = 0, I = 0, R = 0;
-
-        switch (scan) {
-            case 1:
-                do {
-                    printf("Calculating Voltage Across a Resistor\n");
-                    printf("Enter Current (I) in Amperes: ");
-
-                    if (scanf("%f", &I) != 1 || I < 0) {
-                        while (getchar() != '\n');
-                        printf("Invalid input. Please enter a positive number.\n");
-                        continue;
-                    }
-
-                    printf("Enter Resistance value (Ohms): ");
-
-                    if (scanf("%f", &R) != 1 || R < 0) {
-                        while (getchar() != '\n');
-                        printf("Invalid input. Please enter a positive number.\n");
-                        continue;
-                    }
-
-                    V = I * R;
-                    printf("The voltage across a %.2f Ohm resistor with %.2f A current is: %.2f V\n",
-                           R, I, V);
-
-                    break;
-                } while (1);
-                break;
-
-            case 2:
-                do {
-                    printf("Calculating Current in a Circuit\n");
-                    printf("Enter Voltage source (V): ");
-
-                    if (scanf("%f", &V) != 1) {
-                        while (getchar() != '\n');
-                        printf("Invalid input. Please enter a number.\n");
-                        continue;
-                    }
-
-                    printf("Enter Total Resistance (Ohms): ");
-
-                    if (scanf("%f", &R) != 1 || R < 0) {
-                        while (getchar() != '\n');
-                        printf("Invalid input. Please enter a positive number.\n");
-                        continue;
-                    }
-
-                    if (R == 0) {
-                        printf("Error: Short Circuit\n");
-                        break;
-                    }
-
-                    I = V / R;
-                    printf("The current flowing in a circuit with %.2f Ohm resistance and %.2f V source is: %.2f A\n",
-                           R, V, I);
-
-                    break;
-                } while (1);
-                break;
-
-            case 3:
-                do {
-                    printf("Calculating Resistance in a Circuit\n");
-                    printf("Enter Voltage source (V): ");
-
-                    if (scanf("%f", &V) != 1) {
-                        while (getchar() != '\n');
-                        printf("Invalid input. Please enter a number.\n");
-                        continue;
-                    }
-
-                    printf("Enter Current (I) in Amperes: ");
-
-                    if (scanf("%f", &I) != 1 || I < 0) {
-                        while (getchar() != '\n');
-                        printf("Invalid input. Please enter a positive number.\n");
-                        continue;
-                    }
-
-                    if (I == 0) {
-                        printf("Error: Open Circuit\n");
-                        break;
-                    }
-
-                    R = V / I;
-                    printf("The resistance in a circuit with %.2f A current and %.2f V source is: %.2f Ohms\n",
-                           I, V, R);
-
-                    break;
-                } while (1);
-                break;
-
-            default:
-                printf("Invalid choice!\n");
-                break;
-        }
-
-        printf("Do you want to try again? (y/n): ");
-        char temp;
-        scanf(" %c", &temp);
-
-        if (temp == 'y' || temp == 'Y') again = 1;
-        else again = 0;
-
-    } while (again == 1);
-
-    clearScreen();
-}
-
-void clearScreen() {
-#ifdef _WIN32
-    system("cls");
-#else
-    system("clear");
-#endif
 }
 
 void octToDec() {
@@ -479,7 +464,7 @@ void hexToDec() {
 
         char hex[100];
         int decimal = 0;
-        int valid = 0; 
+        int valid = 0;
 
         printf("=====================================\n");
         printf("             HEX TO DECIMAL          \n");
@@ -584,7 +569,7 @@ void binToDec(){
         else repeat = 0;
     }
 }
- 
+
 void power() {
     int repeat = 1;
     while (repeat) {
@@ -684,4 +669,22 @@ void parallel() {
         if (tmp == 'y' || tmp == 'Y') repeat = 1;
         else repeat = 0;
     }
+}
+
+void clearInputBuffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
+void pause() {
+    clearInputBuffer();
+    getchar();
+}
+
+void clearScreen() {
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
 }
