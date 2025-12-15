@@ -82,14 +82,13 @@ This project is created to fulfill the final task of the **Basic Programming** c
    void power();
    void series();
    void parallel();
-   void hexToDec();
    void binToDec();
 ```
 
 ## 1. `clearScreen()`
 Clears the terminal screen for a cleaner program interface.  
-- On Windows use `cls`  
-- On Linux/Mac use `clear`
+- On Windows uses `cls`  
+- On Linux/Mac uses `clear`
 
 ---
 
